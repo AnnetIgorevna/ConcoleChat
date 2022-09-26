@@ -1,5 +1,6 @@
-#include <iostream>
 #include "Chat.h"
+
+#include <iostream>
 
 
 //std::shared_ptr<User> Chat::getUserByName(const std::string& name) const
