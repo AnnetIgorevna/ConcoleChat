@@ -117,18 +117,25 @@ void Chat::logIn()
 void Chat::signUp()
 {
 	std::string login, password, name;
+	bool passwordOk = false;
 
 	std::cout << "Enter your login: " << std::endl;
 	std::cin >> login;
-	std::cout << "Enter your password: " << std::endl;
-	std::cin >> password;
-	std::cout << "Enter your name: " << std::endl;
-	std::cin >> name;
-
 	if (getUserByLogin(login) || login == "all")
 	{
 		throw UserLoginExp();
 	}
+	while (!(passwordOk))
+	{
+		std::cout << "Enter your password: " << std::endl;
+		std::cin >> password;
+		if (password.length() < 4 || password.length() > 8)
+			throw UserPasswordExp();
+		else
+			passwordOk = true;
+	}
+	std::cout << "Enter your name: " << std::endl;
+	std::cin >> name;
 
 	User user = User(login, password, name);
 	_users.push_back(user);
@@ -152,14 +159,14 @@ void Chat::showChat()
 	{
 		if (_currentUser->getUserLogin() == message.getFrom() || _currentUser->getUserLogin() == message.getTo() || message.getTo() == "all")
 		{
-			from = (_currentUser->getUserLogin() == message.getFrom()) ? "me" : getUserByLogin(message.getFrom())->getUserLogin();
+			from = (_currentUser->getUserLogin() == message.getFrom()) ? "Me" : getUserByLogin(message.getFrom())->getUserLogin();
 			if (message.getTo() == "all")
 			{
 				to = "all";
 			}
 			else
 			{
-				to = (_currentUser->getUserLogin() == message.getTo()) ? "me" : getUserByLogin(message.getTo())->getUserLogin();
+				to = (_currentUser->getUserLogin() == message.getTo()) ? "Me" : getUserByLogin(message.getTo())->getUserLogin();
 			}
 			std::cout << "From: " << from << "\nTo: " << to << std::endl;
 			std::cout << "Text: " << message.getText() << std::endl << std::endl;
@@ -176,7 +183,7 @@ void Chat::showAllUsersLogin()
 	{
 		if (_currentUser->getUserLogin() == user.getUserLogin())
 		{
-			std::cout << "me";
+			std::cout << "Me";
 		}
 		else
 		{

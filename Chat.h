@@ -4,11 +4,15 @@
 #include <memory>
 #include "Message.h"
 
-/*Структура, содержащая исключение*/
+/*Структуры, содержащие вызов исключений*/
 
 struct UserLoginExp : public std::exception
 {
 	const char* what() const noexcept override { return "error: user login is bisy"; }
+};
+struct UserPasswordExp : public std::exception
+{
+	const char* what() const noexcept override { return "error: the password length musy be from 4 to 8 digits or letters"; }
 };
 
 /*Класс Chat содержит в себе основную реализацию консольного чата*/
