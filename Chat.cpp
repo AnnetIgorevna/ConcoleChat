@@ -88,23 +88,29 @@ void Chat::logIn()
 	do {
 		std::cout << "Enter your login: " << std::endl;
 		std::cin >> login;
-		std::cout << "Enter your password: " << std::endl;
-		std::cin >> password;
-
 		_currentUser = getUserByLogin(login);
-
-		if (_currentUser == nullptr || (password != _currentUser->getUserPassword()))
+		if (_currentUser == nullptr)
 		{
-			_currentUser = nullptr;
-			std::cout << "The login or password entered is incorrect" << std::endl;
-			std::cout << "To exit press 0, to continue press any key: " << std::endl;
+			std::cout << "The login entered is incorrect. To exit press 0, to continue press any key:" << std::endl;
 			std::cin >> operation;
 			if (operation == 0)
-			{
 				break;
-			}
 		}
-
+		else
+		{
+			do
+			{
+				std::cout << "Enter your password: " << std::endl;
+				std::cin >> password;
+				if (password != _currentUser->getUserPassword())
+				{
+					std::cout << "The password entered is incorrect. To exit press 0, to continue press any key:" << std::endl;
+					std::cin >> operation;
+					if (operation == 0)
+						break;
+				}
+			} while (password != _currentUser->getUserPassword());
+		}
 	} while (!_currentUser);
 }
 
@@ -153,7 +159,7 @@ void Chat::showChat()
 			}
 			else
 			{
-				to = (_currentUser->getUserLogin() == message.getTo()) ? "me" : getUserByLogin(message.getFrom())->getUserLogin();
+				to = (_currentUser->getUserLogin() == message.getTo()) ? "me" : getUserByLogin(message.getTo())->getUserLogin();
 			}
 			std::cout << "From: " << from << "\nTo: " << to << std::endl;
 			std::cout << "Text: " << message.getText() << std::endl << std::endl;
@@ -170,11 +176,11 @@ void Chat::showAllUsersLogin()
 	{
 		if (_currentUser->getUserLogin() == user.getUserLogin())
 		{
-			std::cout << "me" << std::endl;
+			std::cout << "me";
 		}
 		else
 		{
-			std::cout << user.getUserLogin() << std::endl;
+			std::cout << user.getUserLogin();
 		}
 		std::cout << std::endl;
 	}
