@@ -184,7 +184,7 @@ void Chat::showAllUsersLogin()
 		}
 		std::cout << std::endl;
 	}
-	std::cout << "****************************" << std::endl;
+	std::cout << "******************************" << std::endl;
 }
 
 void Chat::addMessage()
