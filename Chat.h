@@ -4,9 +4,9 @@
 #include <memory>
 #include "Message.h"
 
-/*Структуры, содержащие вызов исключений*/
+/*Структуры-исключения*/
 
-struct UserLoginExp : public std::exception
+struct UserLoginExp: public std::exception
 {
 	const char* what() const noexcept override { return "error: user login is bisy"; }
 };
@@ -22,7 +22,7 @@ class Chat
 public:
 	void start() { _isChatWork = true; }; // начало работы чата, установка _isChatWork в true
 	bool isChatWork() const { return _isChatWork; } // возвращает текущее состояние чата работает/не работает
-	std::shared_ptr<User> getCurrentUser() const { return _currentUser; } 
+	std::shared_ptr<User> getCurrentUser() const { return _currentUser; } // если текущий пользователь выходит из пользовательского меню - возвращает nullptr
 	void showLoginMenu(); // показать меню регистрации
 	void showUserMenu(); // показать меню пользователя
 private:
@@ -36,9 +36,7 @@ private:
 	void showChat(); // показать все сообщения в чате
 	void showAllUsersLogin(); // показать всех пользователей, зарегистрованных в чате
 	void addMessage(); // написать сообщение всем / конкретному пользователю
+	void changePassword(); // изменение пароля текущего пользователя
 
-//	std::vector<User> getAllUsers() { return _users; } 
-//	std::vector<Message> getAllMessages() { return _messages; }
 	std::shared_ptr<User> getUserByLogin(const std::string& login) const; // найти пользователя по логину
-//	std::shared_ptr<User> getUserByName(const std::string& name) const; // найти пользователя по имени
 };

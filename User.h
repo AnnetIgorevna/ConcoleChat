@@ -15,7 +15,6 @@ public:
 	void setUserPassword(const std::string& password) { _password = password; }
 	
 	const std::string& getUserName() const { return _name; }
-	void setUserName(const std::string& name) { _name = name; }
 
 private:
 	const std::string _login;

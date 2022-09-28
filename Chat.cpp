@@ -1,17 +1,5 @@
 #include "Chat.h"
-
 #include <iostream>
-
-
-//std::shared_ptr<User> Chat::getUserByName(const std::string& name) const
-//{
-//	for (auto& user : _users)
-//	{
-//		if (name == user.getUserName())
-//			return std::make_shared<User>(user);
-//	}
-//	return nullptr;
-//}
 
 void Chat::showLoginMenu()
 {
@@ -56,7 +44,8 @@ void Chat::showUserMenu()
 
 	do
 	{
-		std::cout << "\n1 - Show all users \n2 - Show all messages \n3 - Add message to chat \n4 - Sign Out" << std::endl;
+		std::cout << "\n1 - Show all users \n2 - Show all messages" 
+			<< "\n3 - Add message to chat \n4 - Change password \n5 - Sign Out" << std::endl;
 		std::cin >> operation;
 		switch (operation)
 		{
@@ -70,6 +59,9 @@ void Chat::showUserMenu()
 			addMessage();
 			break;
 		case '4':
+			changePassword();
+			break;
+		case '5':
 			_currentUser = nullptr;
 			break;
 		default:
@@ -217,6 +209,23 @@ void Chat::addMessage()
 	else
 	{
 		_messages.push_back(Message{ _currentUser->getUserLogin(), getUserByLogin(to)->getUserLogin(), text });
+	}
+}
+
+void Chat::changePassword()
+{
+	std::string password;
+	std::cout << "Enter new password: " << std::endl;
+	std::cin >> password;
+	if (password.length() < 4 || password.length() > 8)
+		throw UserPasswordExp();
+	else
+	{
+		for (auto& user : _users)
+		{
+			if (_currentUser->getUserLogin() == user.getUserLogin())
+				user.setUserPassword(password);
+		}
 	}
 }
 
