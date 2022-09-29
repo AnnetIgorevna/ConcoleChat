@@ -12,7 +12,7 @@ struct UserLoginExp: public std::exception
 };
 struct UserPasswordExp : public std::exception
 {
-	const char* what() const noexcept override { return "error: the password length musy be from 4 to 8 digits or letters"; }
+	const char* what() const noexcept override { return "error: the password length must be from 4 to 8 digits or letters"; }
 };
 
 /*Класс Chat содержит в себе основную реализацию консольного чата*/

@@ -65,7 +65,7 @@ void Chat::showUserMenu()
 			_currentUser = nullptr;
 			break;
 		default:
-			std::cout << "Wrong choice! Choose 1 - 4" << std::endl;
+			std::cout << "Wrong choice! Choose 1 - 5" << std::endl;
 			break;
 		}
 	} while (_currentUser);
@@ -75,7 +75,7 @@ void Chat::showUserMenu()
 void Chat::logIn()
 {
 	std::string login, password;
-	char operation;
+	std::string operation;
 
 	do {
 		std::cout << "Enter your login: " << std::endl;
@@ -85,8 +85,8 @@ void Chat::logIn()
 		{
 			std::cout << "The login entered is incorrect. To exit press 0, to continue press any key:" << std::endl;
 			std::cin >> operation;
-			if (operation == 0)
-				break;
+			if (operation == "0")
+				return;
 		}
 		else
 		{
@@ -98,12 +98,16 @@ void Chat::logIn()
 				{
 					std::cout << "The password entered is incorrect. To exit press 0, to continue press any key:" << std::endl;
 					std::cin >> operation;
-					if (operation == 0)
-						break;
+					if (operation == "0")
+					{
+						_currentUser = nullptr;
+						return;
+					}
 				}
 			} while (password != _currentUser->getUserPassword());
 		}
 	} while (!_currentUser);
+
 }
 
 void Chat::signUp()
